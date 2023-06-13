@@ -1,10 +1,7 @@
-package com.kolev.stock.app.myapp.model;
+package com.kolev.stock.app.myapp.models;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
@@ -14,6 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
+@Builder
 public class Wallet {
 
     @Id
@@ -21,7 +19,8 @@ public class Wallet {
     @Column(name = "wallet_id")
     private Long walletId;
 
-    private Long availableBalance;
+    @Builder.Default
+    private Long availableBalance = 0L;
 
     @OneToMany(mappedBy = "wallet", cascade = CascadeType.ALL)
     private List<Transaction> walletTransactions;

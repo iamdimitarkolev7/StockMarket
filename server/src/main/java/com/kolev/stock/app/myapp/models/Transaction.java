@@ -1,4 +1,4 @@
-package com.kolev.stock.app.myapp.model;
+package com.kolev.stock.app.myapp.models;
 
 import com.kolev.stock.app.myapp.enums.TransactionType;
 import jakarta.persistence.*;
