@@ -1,8 +1,8 @@
 package com.kolev.stock.app.myapp.service.interfaces;
 
 import com.kolev.stock.app.myapp.models.User;
-import com.kolev.stock.app.myapp.models.requests.UserLoginRequest;
-import com.kolev.stock.app.myapp.models.requests.UserRegisterRequest;
+import com.kolev.stock.app.myapp.models.requests.users.UserLoginRequest;
+import com.kolev.stock.app.myapp.models.requests.users.UserRegisterRequest;
 
 import java.util.List;
 import java.util.Optional;

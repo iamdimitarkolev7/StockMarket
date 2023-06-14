@@ -1,7 +1,7 @@
-package com.kolev.stock.app.myapp.models.requests;
+package com.kolev.stock.app.myapp.models.requests.users;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.kolev.stock.app.myapp.models.requests.base.UserAuthRequest;
+import com.kolev.stock.app.myapp.models.requests.users.base.UserAuthRequest;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
