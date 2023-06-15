@@ -1,2 +1,2 @@
-# StockAnalyzer
-This project aims to give us a real-time stock data analysis and to generate insights from the data
+# StockMarket
+The project aims to provide users with a comprehensive and user-friendly application that facilitates seamless buying, selling, and trading of stocks.
