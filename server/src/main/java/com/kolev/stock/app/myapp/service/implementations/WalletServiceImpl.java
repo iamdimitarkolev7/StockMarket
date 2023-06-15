@@ -3,7 +3,6 @@ package com.kolev.stock.app.myapp.service.implementations;
 import com.kolev.stock.app.myapp.enums.TransactionType;
 import com.kolev.stock.app.myapp.exceptions.users.UserDoesNotExistException;
 import com.kolev.stock.app.myapp.exceptions.wallets.NotEnoughMoneyException;
-import com.kolev.stock.app.myapp.exceptions.wallets.WalletNotFoundException;
 import com.kolev.stock.app.myapp.models.Transaction;
 import com.kolev.stock.app.myapp.models.User;
 import com.kolev.stock.app.myapp.models.Wallet;
@@ -48,10 +47,12 @@ public class WalletServiceImpl implements WalletService {
         Transaction transaction = Transaction.builder()
                 .transactionType(TransactionType.ADD_MONEY)
                 .value(amount)
-                .wallet(wallet)
+                .user(user)
                 .build();
+
         Transaction newTransaction = transactionRepository.save(transaction);
-        wallet.addTransaction(newTransaction);
+        user.addNewTransaction(newTransaction);
+        userRepository.save(user);
 
         return Optional.ofNullable(walletRepository.save(wallet));
     }
@@ -71,10 +72,11 @@ public class WalletServiceImpl implements WalletService {
         Transaction transaction = Transaction.builder()
                 .transactionType(TransactionType.WITHDRAW_MONEY)
                 .value(amount)
-                .wallet(wallet)
+                .user(user)
                 .build();
         Transaction newTransaction = transactionRepository.save(transaction);
-        wallet.addTransaction(newTransaction);
+        user.addNewTransaction(newTransaction);
+        userRepository.save(user);
 
         return Optional.ofNullable(walletRepository.save(wallet));
     }

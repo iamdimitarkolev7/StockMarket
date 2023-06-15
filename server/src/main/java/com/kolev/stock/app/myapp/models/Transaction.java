@@ -22,10 +22,6 @@ public class Transaction {
     private Long value;
 
     @ManyToOne
-    @JoinColumn(name = "portfolio_id")
-    private Portfolio portfolio;
-
-    @ManyToOne
-    @JoinColumn(name = "wallet_id")
-    private Wallet wallet;
+    @JoinColumn(name = "user_id")
+    private User user;
 }

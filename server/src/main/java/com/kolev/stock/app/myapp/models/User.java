@@ -1,5 +1,8 @@
 package com.kolev.stock.app.myapp.models;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -43,6 +46,11 @@ public class User implements UserDetails {
     @JoinColumn(name = "portfolio_id")
     private Portfolio portfolio;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "transactionId")
+    @JsonIdentityReference(alwaysAsId = true)
+    private List<Transaction> transactions;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<>();
@@ -70,5 +78,9 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public void addNewTransaction(Transaction transaction) {
+        transactions.add(transaction);
     }
 }

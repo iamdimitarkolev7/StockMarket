@@ -23,7 +23,4 @@ public class Portfolio {
 
     @OneToMany(mappedBy = "portfolio", cascade = CascadeType.ALL)
     private List<PortfolioStock> portfolioStocks;
-
-    @OneToMany(mappedBy = "portfolio", cascade = CascadeType.ALL)
-    private List<Transaction> portfolioTransactions;
 }

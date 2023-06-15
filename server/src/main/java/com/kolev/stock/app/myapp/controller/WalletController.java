@@ -1,7 +1,6 @@
 package com.kolev.stock.app.myapp.controller;
 
 import com.kolev.stock.app.myapp.exceptions.wallets.WalletNotFoundException;
-import com.kolev.stock.app.myapp.models.User;
 import com.kolev.stock.app.myapp.models.Wallet;
 import com.kolev.stock.app.myapp.models.requests.wallet.WalletRequest;
 import com.kolev.stock.app.myapp.models.responses.Response;
