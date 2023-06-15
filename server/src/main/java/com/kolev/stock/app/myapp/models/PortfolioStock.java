@@ -19,10 +19,9 @@ public class PortfolioStock {
     @Column(name = "portfolio_stock_id")
     private Long portfolioStockId;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "stock_id")
-    private Stock stock;
-
+    private String symbol;
+    private Long price;
+    private String currency;
     private Long quantity;
 
     @ManyToOne

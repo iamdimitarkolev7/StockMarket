@@ -24,6 +24,7 @@ public class SecurityConfig {
                 .requestMatchers("/api/users/register").permitAll()
                 .requestMatchers("/api/users/add_money/**").permitAll()
                 .requestMatchers("/api/users/withdraw_money/**").permitAll()
+                .requestMatchers("/api/home").permitAll()
                 .requestMatchers("/login*").permitAll()
                 .anyRequest()
                 .authenticated()

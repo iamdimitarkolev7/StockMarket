@@ -20,7 +20,6 @@ import static java.util.Map.of;
 @RequiredArgsConstructor
 public class WalletController {
 
-    private final UserService userService;
     private final WalletService walletService;
 
     @GetMapping("/api/users/wallet/{id}")
