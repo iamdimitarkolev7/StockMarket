@@ -6,7 +6,7 @@ import com.kolev.stock.app.myapp.models.requests.users.UserLoginRequest;
 import com.kolev.stock.app.myapp.models.requests.users.UserRegisterRequest;
 import com.kolev.stock.app.myapp.models.responses.Response;
 import com.kolev.stock.app.myapp.service.interfaces.UserService;
-import com.kolev.stock.app.myapp.utils.JwtUtil;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,7 +27,7 @@ public class UserController {
     private final UserService userService;
 
     @Autowired
-    private final JwtUtil jwtUtil;
+    private HttpSession httpSession;
 
     @PostMapping("/api/users/register")
     public ResponseEntity<Response> registerUser(@RequestBody UserRegisterRequest request) {
@@ -46,6 +46,7 @@ public class UserController {
             );
         }
         catch(UserAlreadyAuthenticatedException err) {
+
             return ResponseEntity.badRequest().body(
                     Response.builder()
                             .timeStamp(LocalDateTime.now())
@@ -56,6 +57,7 @@ public class UserController {
             );
         }
         catch(RuntimeException err) {
+
             return ResponseEntity.badRequest().body(
                     Response.builder()
                             .timeStamp(LocalDateTime.now())
@@ -73,6 +75,7 @@ public class UserController {
         try {
 
             User loggedInUser = userService.loginUser(request);
+            httpSession.setAttribute("user_roles", loggedInUser.getRoles());
 
             return ResponseEntity.ok(
                     Response.builder().timeStamp(LocalDateTime.now())
@@ -84,6 +87,7 @@ public class UserController {
             );
         }
         catch(UserAlreadyAuthenticatedException err) {
+
             return ResponseEntity.badRequest().body(
                     Response.builder()
                             .timeStamp(LocalDateTime.now())
@@ -94,6 +98,7 @@ public class UserController {
             );
         }
         catch(RuntimeException err) {
+
             return ResponseEntity.badRequest().body(
                     Response.builder()
                             .timeStamp(LocalDateTime.now())

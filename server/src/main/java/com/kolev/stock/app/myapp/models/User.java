@@ -38,6 +38,12 @@ public class User implements UserDetails {
     @ManyToMany
     private List<Role> roles;
 
+    private String jwtToken;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "token_id")
+    private Token token;
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "wallet_id")
     private Wallet userWallet;

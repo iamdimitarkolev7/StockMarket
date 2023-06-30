@@ -3,10 +3,13 @@ package com.kolev.stock.app.myapp.controller;
 import com.kolev.stock.app.myapp.models.PortfolioStock;
 import com.kolev.stock.app.myapp.models.responses.Response;
 import com.kolev.stock.app.myapp.utils.WebSocketClient;
+import jakarta.servlet.http.HttpSession;
 import jakarta.websocket.ContainerProvider;
 import jakarta.websocket.Session;
 import jakarta.websocket.WebSocketContainer;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,15 +28,20 @@ import static java.util.Map.of;
 @RestController
 public class HomeController {
 
-    private final List<String> appStocks = List.of("TSLA", "NIO", "APPL", "EIX", "MO", "CO");
-
     @GetMapping("/api/home")
+    @PreAuthorize("hasRole('ROLE_USER')")
     public ResponseEntity<Response> getHome() throws IOException, InterruptedException {
-        String url = "ws://ws.eodhistoricaldata.com/ws/us?api_token=demo";
 
+        String url = "ws://ws.eodhistoricaldata.com/ws/us?api_token=demo";
         WebSocketContainer container = ContainerProvider.getWebSocketContainer();
+
         try {
             Session session = container.connectToServer(WebSocketClient.class, URI.create(url));
+
+            if (session.isOpen()) {
+
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -13,7 +13,7 @@ public class WebSocketClient {
 
         try {
             // Subscribe to stock symbols for real-time data
-            session.getBasicRemote().sendText("{\"action\": \"subscribe\", \"symbols\": \"AMZN, TSLA\"}");
+            session.getBasicRemote().sendText("{\"action\": \"subscribe\", \"symbols\": \"AMZN, TSLA, APPL, NIO, CO, MO\"}");
         } catch (Exception e) {
             e.printStackTrace();
         }

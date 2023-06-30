@@ -1,15 +1,19 @@
-import logo from './logo.svg';
 import './App.css';
-import {Switch, Route} from "react-router-dom";
+import { Route, Routes } from 'react-router-dom';
+import Home from "./components/common/Home";
+import NavBar from './components/common/NavBar';
+import Register from './components/user/Register';
+import isLoggedIn from './utils/isLoggedIn';
 
 const App = () => {
+
   return (
-    <div className="App">
-    <Switch>
-    <Route path="/" exact component={Home}/>
-    <Route path="/register" component={Register}/>
-    <Route path="*" component={NotFound}/>
-    </Switch>
+      <div className="App">
+        <NavBar/>
+        <Routes>
+          <Route path="/" exact element={<Home/>} />
+          <Route path="/register" element={<Register/>} />
+        </Routes>
     </div>
   );
 }
