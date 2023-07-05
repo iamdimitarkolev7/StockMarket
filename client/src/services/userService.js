@@ -1,8 +1,9 @@
+import handleAuthResponse from "./utils/handleAuthResponse";
+import handleError from "./utils/handleError";
+
 const registerRequest = (data) => {
   
-  try {
-    
-    fetch('http://localhost:8088/api/users/register', {
+  fetch('http://localhost:8088/api/users/register', {
       method: 'POST',
       body: JSON.stringify(data),
       headers: {
@@ -11,16 +12,30 @@ const registerRequest = (data) => {
       credentials: 'include'
     })
     .then(res => res.json())
-    .then(res => func(res.data));
-
-  } catch (error) {
-    console.error(error);
-  }
+    .then(res => handleAuthResponse(res))
+    .catch(err => handleError(err));
 };
 
-const func = (data) => {
-  sessionStorage.setItem('user', data.createdUser.username);
-  sessionStorage.setItem('jwt', data.createdUser.jwtToken);
+const loginRequest = (data) => {
+
+  fetch('http://localhost:8088/api/users/login', {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: {
+        'Content-type': 'application/json'
+      },
+      credentials: 'include'
+    })
+    .then(res => res.json())
+    .then(res => handleAuthResponse(res))
+    .catch(err => handleError(err));
 }
 
-export default registerRequest;
+const logoutRequest = () => {
+  // TODO...
+  console.log('logout');
+}
+
+const userRequests = { registerRequest, loginRequest, logoutRequest };
+
+export default userRequests;

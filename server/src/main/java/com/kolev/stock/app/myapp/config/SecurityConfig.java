@@ -1,7 +1,6 @@
 package com.kolev.stock.app.myapp.config;
 
 import com.kolev.stock.app.myapp.config.jwt.JwtAuthenticationFilter;
-import com.kolev.stock.app.myapp.config.jwt.JwtService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -28,7 +28,7 @@ const NavBar = () => {
         </li> }
         { isLoggedIn() &&
           <li>
-            <Link className="navbar-link" to="/my-profile/:username" >
+            <Link className="navbar-link" to={`/my-profile/${sessionStorage.getItem('userId')}`} >
               My Profile
             </Link>
           </li> }

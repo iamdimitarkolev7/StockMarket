@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 
-import registerRequest from "../../services/userService";
-import "../styles/RegisterStyles.css";
+import userRequests from "../../services/userService";
+import "../styles/AuthStyles.css";
 import isLoggedIn from "../../utils/isLoggedIn";
 
 const Register = () => {
@@ -39,8 +39,7 @@ const Register = () => {
     event.preventDefault();
     
     const data = {firstName, lastName, username, password, confirmPassword};
-    
-    registerRequest(data);
+    userRequests.registerRequest(data);
     navigate('/');
   };
 

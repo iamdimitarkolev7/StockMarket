@@ -1,6 +1,7 @@
 package com.kolev.stock.app.myapp.controller;
 
 import com.kolev.stock.app.myapp.exceptions.users.UserAlreadyAuthenticatedException;
+import com.kolev.stock.app.myapp.exceptions.users.UserDoesNotExistException;
 import com.kolev.stock.app.myapp.models.User;
 import com.kolev.stock.app.myapp.models.requests.users.UserLoginRequest;
 import com.kolev.stock.app.myapp.models.requests.users.UserRegisterRequest;
@@ -11,12 +12,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 import static java.util.Map.of;
 
@@ -38,10 +37,11 @@ public class UserController {
 
             return ResponseEntity.ok(
                     Response.builder().timeStamp(LocalDateTime.now())
-                            .data(of("createdUser", registeredUser))
+                            .data(of("user", registeredUser))
                             .message("User registered successfully!")
                             .status(HttpStatus.CREATED)
                             .statusCode(HttpStatus.CREATED.value())
+                            .success(true)
                             .build()
             );
         }
@@ -52,6 +52,7 @@ public class UserController {
                             .timeStamp(LocalDateTime.now())
                             .status(HttpStatus.FORBIDDEN)
                             .statusCode(HttpStatus.FORBIDDEN.value())
+                            .success(false)
                             .message(err.getMessage())
                             .build()
             );
@@ -64,6 +65,7 @@ public class UserController {
                             .status(HttpStatus.BAD_REQUEST)
                             .statusCode(HttpStatus.BAD_REQUEST.value())
                             .message(err.getMessage())
+                            .success(false)
                             .build()
             );
         }
@@ -75,14 +77,14 @@ public class UserController {
         try {
 
             User loggedInUser = userService.loginUser(request);
-            httpSession.setAttribute("user_roles", loggedInUser.getRoles());
 
             return ResponseEntity.ok(
                     Response.builder().timeStamp(LocalDateTime.now())
-                            .data(of("loggedInUser", loggedInUser))
+                            .data(of("user", loggedInUser))
                             .message("User successfully logged in!")
                             .status(HttpStatus.OK)
                             .statusCode(HttpStatus.OK.value())
+                            .success(true)
                             .build()
             );
         }
@@ -93,6 +95,7 @@ public class UserController {
                             .timeStamp(LocalDateTime.now())
                             .status(HttpStatus.FORBIDDEN)
                             .statusCode(HttpStatus.FORBIDDEN.value())
+                            .success(false)
                             .message(err.getMessage())
                             .build()
             );
@@ -104,7 +107,40 @@ public class UserController {
                             .timeStamp(LocalDateTime.now())
                             .status(HttpStatus.BAD_REQUEST)
                             .statusCode(HttpStatus.BAD_REQUEST.value())
+                            .success(false)
                             .message(err.getMessage())
+                            .build()
+            );
+        }
+    }
+
+    @GetMapping("/api/users/{id}")
+    public ResponseEntity<Response> getUserById(@PathVariable("id") Long userId) {
+
+        try {
+
+            Optional<User> user = userService.getUserById(userId);
+
+            return ResponseEntity.ok(
+                    Response.builder()
+                            .timeStamp(LocalDateTime.now())
+                            .message("User successfully retrieved")
+                            .success(true)
+                            .status(HttpStatus.OK)
+                            .statusCode(HttpStatus.OK.value())
+                            .data(of("user", user.get()))
+                            .build()
+            );
+        }
+        catch (UserDoesNotExistException err) {
+
+            return ResponseEntity.badRequest().body(
+                    Response.builder()
+                            .timeStamp(LocalDateTime.now())
+                            .message(err.getMessage())
+                            .success(false)
+                            .status(HttpStatus.BAD_REQUEST)
+                            .statusCode(HttpStatus.BAD_REQUEST.value())
                             .build()
             );
         }

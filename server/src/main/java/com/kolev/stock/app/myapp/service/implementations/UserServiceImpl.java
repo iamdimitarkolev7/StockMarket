@@ -39,8 +39,8 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    private final JwtService jwtService;
-    private final AuthenticationManager authenticationManager;
+//    private final JwtService jwtService;
+//    private final AuthenticationManager authenticationManager;
 
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
@@ -74,6 +74,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Optional<User> getUserById(Long userId) {
+
+        if (!userExists(userId)) {
+            throw new UserDoesNotExistException("User with such id does not exist!");
+        }
+
         return userRepository.findById(userId);
     }
 
@@ -122,9 +127,9 @@ public class UserServiceImpl implements UserService {
                 .portfolio(new Portfolio())
                 .build();
 
-        String jwtToken = jwtService.generateToken(user);
-        saveUserToken(user, jwtToken);
-        user.setJwtToken(jwtToken);
+//        String jwtToken = jwtService.generateToken(user);
+//        saveUserToken(user, jwtToken);
+//        user.setJwtToken(jwtToken);
 
         return createUser(user);
     }
@@ -145,13 +150,13 @@ public class UserServiceImpl implements UserService {
         }
 
         User loggedInUser = user.get();
-        String jwtToken = loggedInUser.getJwtToken();
+//        String jwtToken = loggedInUser.getJwtToken();
 
-        if (!jwtService.isTokenValid(jwtToken, loggedInUser)) {
-            String newToken = jwtService.generateToken(loggedInUser);
-            saveUserToken(loggedInUser, newToken);
-            loggedInUser.setJwtToken(jwtToken);
-        }
+//        if (!jwtService.isTokenValid(jwtToken, loggedInUser)) {
+//            String newToken = jwtService.generateToken(loggedInUser);
+//            saveUserToken(loggedInUser, newToken);
+//            loggedInUser.setJwtToken(jwtToken);
+//        }
 
         return loggedInUser;
     }

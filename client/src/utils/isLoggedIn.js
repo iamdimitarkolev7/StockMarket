@@ -1,8 +1,7 @@
 const isLoggedIn = () => {
 
-  const jwt = sessionStorage.getItem('jwt');
-  console.log(jwt);
-  return jwt != null;
+  const user = sessionStorage.getItem('user');
+  return user != null;
 }
 
 export default isLoggedIn;
