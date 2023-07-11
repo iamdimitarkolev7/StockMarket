@@ -7,6 +7,7 @@ import com.kolev.stock.app.myapp.models.requests.users.UserLoginRequest;
 import com.kolev.stock.app.myapp.models.requests.users.UserRegisterRequest;
 import com.kolev.stock.app.myapp.models.responses.Response;
 import com.kolev.stock.app.myapp.service.interfaces.UserService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,13 +26,19 @@ public class UserController {
 
     private final UserService userService;
 
-    @Autowired
-    private HttpSession httpSession;
-
     @PostMapping("/api/users/register")
-    public ResponseEntity<Response> registerUser(@RequestBody UserRegisterRequest request) {
+    public ResponseEntity<Response> registerUser(HttpServletRequest servletRequest, @RequestBody UserRegisterRequest request) {
 
-        try {
+        String authorizationHeader = servletRequest.getHeader("Authorization");
+
+        System.out.println(authorizationHeader);
+        // Check if the authorizationHeader is not null and starts with "Bearer "
+        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
+            String bearerToken = authorizationHeader.substring(7); // Extract the token after "Bearer "
+            System.out.println(bearerToken);
+        }
+
+            try {
 
             User registeredUser = userService.registerUser(request);
 

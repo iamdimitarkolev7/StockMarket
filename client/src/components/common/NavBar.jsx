@@ -1,10 +1,15 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-import isLoggedIn from "../../utils/isLoggedIn";
-import "../styles/NavBarStyles.css"
+import "../styles/NavBarStyles.css";
 
 const NavBar = () => {
+
+  const [loggedIn, setLoggedIn] = useState(false);
+
+  useEffect(() => {
+    setLoggedIn(sessionStorage.getItem('user') != null);
+  }, [loggedIn]);
 
   return (
     <nav>
@@ -14,25 +19,25 @@ const NavBar = () => {
             Home
           </Link>
         </li>
-        { !isLoggedIn() &&
+        { !loggedIn &&
           <li>
             <Link className="navbar-link" to="/login" >
               Login
             </Link>
           </li> }
-        { !isLoggedIn() &&
+        { !loggedIn &&
         <li>
           <Link className="navbar-link" to="/register" >
             Register
           </Link>
         </li> }
-        { isLoggedIn() &&
+        { loggedIn &&
           <li>
             <Link className="navbar-link" to={`/my-profile/${sessionStorage.getItem('userId')}`} >
               My Profile
             </Link>
           </li> }
-        { isLoggedIn() &&
+        { loggedIn &&
           <li>
             <Link className="navbar-link" to="/logout" >
               Logout

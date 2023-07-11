@@ -1,9 +1,5 @@
 package com.kolev.stock.app.myapp.service.implementations;
 
-import com.kolev.stock.app.myapp.config.jwt.JwtService;
-import com.kolev.stock.app.myapp.models.Token;
-import com.kolev.stock.app.myapp.repository.TokenRepository;
-import com.kolev.stock.app.myapp.enums.TokenType;
 import com.kolev.stock.app.myapp.exceptions.users.PasswordsDoNotMatchException;
 import com.kolev.stock.app.myapp.exceptions.users.UserAlreadyExistsException;
 import com.kolev.stock.app.myapp.exceptions.users.UserDoesNotExistException;
@@ -20,9 +16,6 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -36,15 +29,9 @@ import java.util.Optional;
 @Slf4j
 public class UserServiceImpl implements UserService {
 
-    @Autowired
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
-
-//    private final JwtService jwtService;
-//    private final AuthenticationManager authenticationManager;
-
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
-    private final TokenRepository tokenRepository;
 
     @Override
     public User createUser(User user) {
@@ -127,10 +114,6 @@ public class UserServiceImpl implements UserService {
                 .portfolio(new Portfolio())
                 .build();
 
-//        String jwtToken = jwtService.generateToken(user);
-//        saveUserToken(user, jwtToken);
-//        user.setJwtToken(jwtToken);
-
         return createUser(user);
     }
 
@@ -149,44 +132,6 @@ public class UserServiceImpl implements UserService {
             throw new PasswordsDoNotMatchException("Passwords do not match!");
         }
 
-        User loggedInUser = user.get();
-//        String jwtToken = loggedInUser.getJwtToken();
-
-//        if (!jwtService.isTokenValid(jwtToken, loggedInUser)) {
-//            String newToken = jwtService.generateToken(loggedInUser);
-//            saveUserToken(loggedInUser, newToken);
-//            loggedInUser.setJwtToken(jwtToken);
-//        }
-
-        return loggedInUser;
-    }
-
-    private void saveUserToken(User user, String jwtToken) {
-
-        Token token = Token.builder()
-                .user(user)
-                .token(jwtToken)
-                .tokenType(TokenType.BEARER)
-                .expired(false)
-                .revoked(false)
-                .build();
-
-        tokenRepository.save(token);
-    }
-
-    private void revokeAllUserTokens(User user) {
-
-        List<Token> validUserTokens = tokenRepository.findAllValidTokenByUser(Math.toIntExact(user.getUserId()));
-
-        if (validUserTokens.isEmpty()) {
-            return;
-        }
-
-        validUserTokens.forEach(token -> {
-            token.setExpired(true);
-            token.setRevoked(true);
-        });
-
-        tokenRepository.saveAll(validUserTokens);
+        return user.get();
     }
 }
