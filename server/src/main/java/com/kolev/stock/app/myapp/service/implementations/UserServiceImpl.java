@@ -9,7 +9,6 @@ import com.kolev.stock.app.myapp.models.requests.users.UserRegisterRequest;
 import com.kolev.stock.app.myapp.repository.RoleRepository;
 import com.kolev.stock.app.myapp.repository.UserRepository;
 import com.kolev.stock.app.myapp.service.interfaces.UserService;
-import com.kolev.stock.app.myapp.utils.JwtService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

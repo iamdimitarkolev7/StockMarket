@@ -1,6 +1,5 @@
 package com.kolev.stock.app.myapp.service.implementations;
 
-import com.kolev.stock.app.myapp.exceptions.users.UserDoesNotExistException;
 import com.kolev.stock.app.myapp.models.Transaction;
 import com.kolev.stock.app.myapp.models.User;
 import com.kolev.stock.app.myapp.repository.TransactionRepository;
@@ -11,10 +10,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service
