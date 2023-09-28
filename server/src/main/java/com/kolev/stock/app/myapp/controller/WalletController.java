@@ -4,7 +4,6 @@ import com.kolev.stock.app.myapp.exceptions.wallets.WalletNotFoundException;
 import com.kolev.stock.app.myapp.models.Wallet;
 import com.kolev.stock.app.myapp.models.requests.wallet.WalletRequest;
 import com.kolev.stock.app.myapp.models.responses.Response;
-import com.kolev.stock.app.myapp.service.interfaces.UserService;
 import com.kolev.stock.app.myapp.service.interfaces.WalletService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -13,8 +12,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
-
-import static java.util.Map.of;
 
 @RestController
 @RequiredArgsConstructor
@@ -34,7 +31,7 @@ public class WalletController {
 
             return ResponseEntity.ok(
                     Response.builder().timeStamp(LocalDateTime.now())
-                            .data(of("wallet", o_wallet.get()))
+                            .data("wallet", o_wallet.get())
                             .message("User registered successfully!")
                             .status(HttpStatus.CREATED)
                             .statusCode(HttpStatus.CREATED.value())
@@ -66,7 +63,7 @@ public class WalletController {
 
             return ResponseEntity.ok(
                     Response.builder().timeStamp(LocalDateTime.now())
-                            .data(of("wallet", o_wallet.get()))
+                            .data("wallet", o_wallet.get())
                             .message("You added money to your wallet successfully!")
                             .status(HttpStatus.OK)
                             .statusCode(HttpStatus.OK.value())
@@ -98,7 +95,7 @@ public class WalletController {
 
             return ResponseEntity.ok(
                     Response.builder().timeStamp(LocalDateTime.now())
-                            .data(of("wallet", o_wallet.get()))
+                            .data("wallet", o_wallet.get())
                             .message("You withdrawn money to your wallet successfully!")
                             .status(HttpStatus.OK)
                             .statusCode(HttpStatus.OK.value())

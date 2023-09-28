@@ -1,15 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from 'react-router-dom';
-
-import userRequests from "../../services/userService";
+import React, { useState, useContext } from "react";
 import "../styles/AuthStyles.css";
-import isLoggedIn from "../../utils/isLoggedIn";
+import { AuthContext } from "../context/AuthContext";
 
 const Login = () => {
-  
+  const { login } = useContext(AuthContext);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const navigate = useNavigate();
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
@@ -20,19 +16,10 @@ const Login = () => {
   };
 
   const handleSubmit = (event) => {
-    
     event.preventDefault();
-    
     const data = { username, password };
-    userRequests.loginRequest(data);
-    navigate('/');
+    login(data);
   };
-
-  useEffect(() => {
-    if (isLoggedIn()) {
-      navigate('/');
-    }
-  }, [navigate]);
 
   return (
     <div>

@@ -3,7 +3,6 @@ package com.kolev.stock.app.myapp.controller;
 import com.kolev.stock.app.myapp.models.requests.portfolio.BuyStockRequest;
 import com.kolev.stock.app.myapp.models.requests.portfolio.SellStockRequest;
 import com.kolev.stock.app.myapp.models.responses.Response;
-import com.kolev.stock.app.myapp.service.interfaces.PortfolioService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

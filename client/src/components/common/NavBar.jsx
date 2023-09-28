@@ -1,15 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 
 import "../styles/NavBarStyles.css";
+import { AuthContext } from "../context/AuthContext";
 
 const NavBar = () => {
 
-  const [loggedIn, setLoggedIn] = useState(false);
-
-  useEffect(() => {
-    setLoggedIn(sessionStorage.getItem('user') != null);
-  }, [loggedIn]);
+  const { isLoggedIn, logout } = useContext(AuthContext);
 
   return (
     <nav>
@@ -19,27 +16,27 @@ const NavBar = () => {
             Home
           </Link>
         </li>
-        { !loggedIn &&
+        { !isLoggedIn &&
           <li>
-            <Link className="navbar-link" to="/login" >
+            <Link className="navbar-link" to="/login">
               Login
             </Link>
           </li> }
-        { !loggedIn &&
+        { !isLoggedIn &&
         <li>
-          <Link className="navbar-link" to="/register" >
+          <Link className="navbar-link" to="/register">
             Register
           </Link>
         </li> }
-        { loggedIn &&
+        { isLoggedIn &&
           <li>
             <Link className="navbar-link" to={`/my-profile/${sessionStorage.getItem('userId')}`} >
               My Profile
             </Link>
           </li> }
-        { loggedIn &&
+        { isLoggedIn &&
           <li>
-            <Link className="navbar-link" to="/logout" >
+            <Link className="navbar-link" to="/logout" onClick={logout}>
               Logout
             </Link>
           </li> }

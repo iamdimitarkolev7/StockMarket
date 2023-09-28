@@ -4,25 +4,20 @@ import jakarta.websocket.*;
 
 import java.io.IOException;
 
+//session.getBasicRemote().sendText("{\"action\": \"subscribe\", \"symbols\": \"AMZN, TSLA\"}");
+
 @ClientEndpoint
 public class WebSocketClient {
 
     @OnOpen
-    public void onOpen(Session session) {
+    public void onOpen(Session session) throws InterruptedException {
         System.out.println("WebSocket connection opened");
 
         try {
-            // Subscribe to stock symbols for real-time data
-            session.getBasicRemote().sendText("{\"action\": \"subscribe\", \"symbols\": \"AMZN, TSLA, APPL, NIO, CO, MO\"}");
+            session.getBasicRemote().sendText("{\"action\": \"subscribe\", \"symbols\": \"AMZN, TSLA\"}");
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    @OnMessage
-    public void onMessage(String message, Session session) throws IOException {
-        System.out.println("Received message: " + message);
-        System.out.println("LG");
     }
 
     @OnError

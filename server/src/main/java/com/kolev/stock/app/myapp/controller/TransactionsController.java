@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -23,7 +22,7 @@ public class TransactionsController {
 
         return ResponseEntity.ok(
                 Response.builder()
-                        .data(Map.of("transactions", transactions))
+                        .data("transactions", transactions)
                         .message("All transactions retrieved successfully")
                         .success(true)
                         .build()

@@ -8,7 +8,7 @@ public interface WalletService {
 
     Optional<Wallet> getWalletByUserId(Long userId);
 
-    Optional<Wallet> addMoneyToWallet(Long walletId, Long amount);
+    Optional<Wallet> addMoneyToWallet(Long userId, Long amount);
 
-    Optional<Wallet> withdrawMoneyFromWallet(Long walletId, Long amount);
+    Optional<Wallet> withdrawMoneyFromWallet(Long userId, Long amount);
 }
