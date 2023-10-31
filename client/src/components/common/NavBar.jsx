@@ -1,8 +1,8 @@
-import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import React, { useContext } from 'react';
 
-import "../styles/NavBarStyles.css";
-import { AuthContext } from "../context/AuthContext";
+import './NavBarStyles.css';
+import { AuthContext } from '../../context/AuthContext';
+import NavBarButton from '../buttons/navBarButton/NavBarButton';
 
 const NavBar = () => {
 
@@ -12,33 +12,26 @@ const NavBar = () => {
     <nav>
       <ul className="navbar">
         <li>
-          <Link className="navbar-link" to="/" >
-            Home
-          </Link>
+          <img className='logo' alt='logo' src='investomania_logo.png'/>
+        </li>
+        <li>
+          <NavBarButton title='Home' direction='/'/>
         </li>
         { !isLoggedIn &&
           <li>
-            <Link className="navbar-link" to="/login">
-              Login
-            </Link>
+            <NavBarButton title='Login' direction='/login'/>
           </li> }
         { !isLoggedIn &&
         <li>
-          <Link className="navbar-link" to="/register">
-            Register
-          </Link>
+          <NavBarButton title='Register' direction='/register'/>
         </li> }
         { isLoggedIn &&
           <li>
-            <Link className="navbar-link" to={`/my-profile/${sessionStorage.getItem('userId')}`} >
-              My Profile
-            </Link>
+            <NavBarButton title='My Profile' direction={`/my-profile/${sessionStorage.getItem('userId')}`}/>
           </li> }
         { isLoggedIn &&
           <li>
-            <Link className="navbar-link" to="/logout" onClick={logout}>
-              Logout
-            </Link>
+            <NavBarButton title='Logout' direction='/logout' onclick={logout}/>
           </li> }
       </ul>
     </nav>

@@ -1,11 +1,12 @@
-import React, { useState, useContext } from "react";
-import { AuthContext } from "../context/AuthContext";
+import React, { useState, useContext } from 'react';
+import { AuthContext } from '../context/AuthContext';
 
-import "../styles/AuthStyles.css";
+import './styles/AuthStyles.css';
 
 const Register = () => {
   
   const { register } = useContext(AuthContext);
+  
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [username, setUsername] = useState('');
@@ -41,53 +42,53 @@ const Register = () => {
   return (
     <div>
       <h2>Register</h2>
-      <form onSubmit={handleSubmit} className="register-form">
-        <div className="form-group">
-          <label htmlFor="firstName">First Name:</label>
+      <form onSubmit={handleSubmit} className='register-form'>
+        <div className='form-group'>
+          <label htmlFor='firstName'>First Name:</label>
           <input
-            type="text"
-            id="firstName"
+            type='text'
+            id='firstName'
             value={firstName}
             onChange={handleFirstNameChange}
           />
         </div>
-        <div className="form-group">
-          <label htmlFor="lastName">Last Name:</label>
+        <div className='form-group'>
+          <label htmlFor='lastName'>Last Name:</label>
           <input
-            type="text"
-            id="lastName"
+            type='text'
+            id='lastName'
             value={lastName}
             onChange={handleLastNameChange}
           />
         </div>
-        <div className="form-group">
-          <label htmlFor="username">Username:</label>
+        <div className='form-group'>
+          <label htmlFor='username'>Username:</label>
           <input
-            type="text"
-            id="username"
+            type='text'
+            id='username'
             value={username}
             onChange={handleUsernameChange}
           />
         </div>
-        <div className="form-group">
-          <label htmlFor="password">Password:</label>
+        <div className='form-group'>
+          <label htmlFor='password'>Password:</label>
           <input
-            type="password"
-            id="password"
+            type='password'
+            id='password'
             value={password}
             onChange={handlePasswordChange}
           />
         </div>
-        <div className="form-group">
-          <label htmlFor="confirmPassword">Confirm Password:</label>
+        <div className='form-group'>
+          <label htmlFor='confirmPassword'>Confirm Password:</label>
           <input
-            type="password"
-            id="confirmPassword"
+            type='password'
+            id='confirmPassword'
             value={confirmPassword}
             onChange={handleConfirmpasswordChange}
           />
         </div>
-        <button type="submit" className="submit-button">Register</button>
+        <button type='submit' className='submit-button'>Register</button>
       </form>
     </div>
   );

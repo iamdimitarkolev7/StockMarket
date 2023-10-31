@@ -1,0 +1,14 @@
+.navBarButton {
+  text-decoration: none;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 25px;
+  transition: background-color 0.3s ease-in;
+  margin: 0 10px;
+  font-weight: bold;
+}
+
+.navBarButton:hover {
+  background-color: white;
+  color: rgb(0, 12, 34);
+}

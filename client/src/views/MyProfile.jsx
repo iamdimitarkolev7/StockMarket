@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
-import "../styles/MyProfileStyles.css"
+import './styles/MyProfileStyles.css';
 
 const MyProfile = () => {
   const [totalMoney, setTotalMoney] = useState(0); 
@@ -66,22 +66,22 @@ const MyProfile = () => {
   }
 
   return (
-    <div className="my-profile">
+    <div className='my-profile'>
       <p>My Profile</p>
       <p>Total Money: {totalMoney}$</p>
-      <div className="input-container">
+      <div className='input-container'>
         <input
-          type="text"
-          placeholder="Enter amount"
+          type='text'
+          placeholder='Enter amount'
           value={amount}
           onChange={(e) => setAmount(e.target.value)}
         />
-        <div className="button-container">
+        <div className='button-container'>
           <button onClick={handleWithdraw}>Withdraw</button>
           <button onClick={handleDeposit}>Deposit</button>
         </div>
       </div>
-      <div className="transactions-table">
+      <div className='transactions-table'>
         <table>
           <tr>
             <th>Id</th>

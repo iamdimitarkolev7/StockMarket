@@ -15,7 +15,6 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
-@EnableMethodSecurity
 public class SecurityConfig {
 
     @Bean
@@ -24,7 +23,6 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> {
                     auth
-                            .requestMatchers("/").permitAll()
                             .requestMatchers("/api/**").permitAll()
                             .requestMatchers("/api/users/**").permitAll()
                             .anyRequest().authenticated();

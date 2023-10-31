@@ -39,8 +39,8 @@ const logout = (setIsLoggedIn, navigate) => {
     credentials: 'include'
   })
   .then(res => {
-    sessionStorage.removeItem("jwtToken");
-    sessionStorage.removeItem("userId");
+    sessionStorage.removeItem('jwtToken');
+    sessionStorage.removeItem('userId');
     setIsLoggedIn(false);
     navigate('/');
   })
